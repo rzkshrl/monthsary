@@ -26,6 +26,7 @@ function initShapeGame() {
   document.getElementById("moves").textContent = 0;
   document.getElementById("matchResult").style.display = "none";
   document.getElementById("nextGameBtn").style.display = "none";
+  document.querySelector(".btn-skip").style.display = "";
 
   // Render kartu
   grid.innerHTML = "";
@@ -40,12 +41,7 @@ function initShapeGame() {
 }
 
 function flipCard(card) {
-  if (
-    !canFlip ||
-    card.classList.contains("matched") ||
-    card.classList.contains("selected")
-  )
-    return;
+  if (!canFlip || card.classList.contains("matched") || card.classList.contains("selected")) return;
 
   card.textContent = card.dataset.emoji;
   card.classList.add("selected");
@@ -75,6 +71,7 @@ function checkMatch() {
     if (matched === allEmojis.length) {
       document.getElementById("matchResult").style.display = "block";
       document.getElementById("nextGameBtn").style.display = "inline-block";
+      document.querySelector(".btn-skip").style.display = "none";
       confettiBurst();
     }
   } else {
@@ -98,9 +95,7 @@ function skipShapeGame() {
 }
 
 function goToGame(n) {
-  document
-    .querySelectorAll(".game-section")
-    .forEach((g) => g.classList.remove("active-game"));
+  document.querySelectorAll(".game-section").forEach((g) => g.classList.remove("active-game"));
   document.getElementById("game" + n).classList.add("active-game");
   window.scrollTo(0, 0);
   if (n === 2) initQuiz();
