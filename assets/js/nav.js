@@ -50,7 +50,12 @@ function yesClicked() {
 
   document.getElementById("yes-text").textContent =
     yesMessages[Math.floor(Math.random() * yesMessages.length)];
-  document.getElementById("yes-msg").style.display = "block";
+  const yesMsg = document.getElementById("yes-msg");
+  yesMsg.style.display = "block";
+  // re-trigger animation
+  yesMsg.classList.remove("visible");
+  void yesMsg.offsetWidth;
+  yesMsg.classList.add("visible");
 
   confettiBurst();
 }
@@ -99,7 +104,11 @@ function noClicked() {
 
   // Setelah 5 hover, tampilkan kucing judging
   if (noCount === 5) {
-    document.getElementById("no-cat").style.display = "block";
+    const noCat = document.getElementById("no-cat");
+    noCat.style.display = "block";
+    noCat.classList.remove("visible");
+    void noCat.offsetWidth;
+    noCat.classList.add("visible");
   }
 }
 

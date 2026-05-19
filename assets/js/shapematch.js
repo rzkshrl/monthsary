@@ -1,6 +1,6 @@
 // ======= SHAPE MATCH GAME =======
 
-const allEmojis = ["🐱", "🌸", "⭐", "🦋", "🍓", "🌈", "🎀", "🍩"];
+const allEmojis = ["🐱", "🌸", "⭐", "🌹", "🥟", "🌈", "🎀", "🍩"];
 
 let flipped = [];
 let matched = 0;
@@ -28,20 +28,26 @@ function initShapeGame() {
   document.getElementById("nextGameBtn").style.display = "none";
   document.querySelector(".btn-skip").style.display = "";
 
-  // Render kartu
+  // Render kartu dengan stagger animation
   grid.innerHTML = "";
-  arr.forEach((emoji) => {
+  arr.forEach((emoji, idx) => {
     const card = document.createElement("div");
     card.className = "shape-card";
     card.textContent = "?";
     card.dataset.emoji = emoji;
+    card.style.animationDelay = idx * 0.04 + "s";
     card.addEventListener("click", () => flipCard(card));
     grid.appendChild(card);
   });
 }
 
 function flipCard(card) {
-  if (!canFlip || card.classList.contains("matched") || card.classList.contains("selected")) return;
+  if (
+    !canFlip ||
+    card.classList.contains("matched") ||
+    card.classList.contains("selected")
+  )
+    return;
 
   card.textContent = card.dataset.emoji;
   card.classList.add("selected");
@@ -63,13 +69,21 @@ function checkMatch() {
     b.classList.replace("selected", "matched");
     matched++;
 
-    document.getElementById("matchScore").textContent = Math.max(
+    const scoreEl = document.getElementById("matchScore");
+    scoreEl.textContent = Math.max(
       0,
       allEmojis.length * 15 - moves * 8 + matched * 10,
     );
+    scoreEl.classList.remove("score-pulse");
+    void scoreEl.offsetWidth;
+    scoreEl.classList.add("score-pulse");
 
     if (matched === allEmojis.length) {
-      document.getElementById("matchResult").style.display = "block";
+      const mr = document.getElementById("matchResult");
+      mr.style.display = "block";
+      mr.classList.remove("visible");
+      void mr.offsetWidth;
+      mr.classList.add("visible");
       document.getElementById("nextGameBtn").style.display = "inline-block";
       document.querySelector(".btn-skip").style.display = "none";
       confettiBurst();
@@ -95,7 +109,9 @@ function skipShapeGame() {
 }
 
 function goToGame(n) {
-  document.querySelectorAll(".game-section").forEach((g) => g.classList.remove("active-game"));
+  document
+    .querySelectorAll(".game-section")
+    .forEach((g) => g.classList.remove("active-game"));
   document.getElementById("game" + n).classList.add("active-game");
   window.scrollTo(0, 0);
   if (n === 2) initQuiz();

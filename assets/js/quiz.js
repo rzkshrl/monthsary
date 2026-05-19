@@ -86,12 +86,21 @@ function renderQuestion() {
   nb.textContent =
     currentQ === quizData.length - 1 ? "Lihat Hasil 🎉" : "Selanjutnya →";
 
+  // Re-trigger quiz card animation on each question
+  const qCard = document.getElementById("quizCard");
+  if (qCard) {
+    qCard.style.animation = "none";
+    void qCard.offsetWidth;
+    qCard.style.animation = "";
+  }
+
   if (d.type === "choice") {
     nb.disabled = !answers[currentQ];
-    d.opts.forEach((opt) => {
+    d.opts.forEach((opt, idx) => {
       const b = document.createElement("button");
       b.className = "quiz-opt" + (answers[currentQ] === opt ? " selected" : "");
       b.textContent = opt;
+      b.style.animationDelay = 0.12 + idx * 0.08 + "s";
       b.onclick = () => selectOption(b, opt);
       oc.appendChild(b);
     });
