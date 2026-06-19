@@ -2,13 +2,16 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy 50th Monthsary🤍</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Happy 51th Monthsary🩵</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Pacifico&family=Nunito:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="hearts-bg" id="heartsBg"></div>
@@ -19,193 +22,276 @@
       <div class="dot" id="dot3"></div>
     </div>
 
-    <!-- ===== PAGE 1 ===== -->
+    <!-- ===== PAGE 1 : INTRO ===== -->
     <div class="page active" id="page1">
       <div class="title-wrap">
         <span class="badge-star s1">✨</span>
         <span class="badge-star s2">🌸</span>
-        <span class="badge-star s3">💖</span>
+        <span class="badge-star s3">🩵</span>
         <span class="badge-star s4">⭐</span>
         <span class="badge-star s5">🌸</span>
         <span class="badge-star s6">✨</span>
         <span class="badge-star s7">⭐</span>
-        <span class="badge-star s8">💖</span>
-        <h1 class="main-title">Happy 50th<br />Monthsary! 🎉</h1>
+        <span class="badge-star s8">🩵</span>
+        <h1 class="main-title">ada kejutan<br />buat kamu! 🎁</h1>
       </div>
 
-      <!-- Page 1: cute love cat -->
       <img
         class="cat-gif gif-asset"
         data-gif="cat-love"
         style="width: clamp(90px, 24vw, 150px)"
         alt="cat-love"
       />
-      <p class="sub-text" style="font-size: 0.88rem; margin-top: 0">
-        sudah 4 tahun 2 bulan aku sama kamu, semoga kita selalu bisa rayain
-        tanggal 20 sama kamu terus yaa💗💗<br />
-        aku sayang banget sama kamu. makasih udah mau sama aku terus dan selalu
-        sabar sama aku yang kadang ngeselin ini hehe<br />
-        lovee you to the moon and back🥰🤍
+      <p class="sub-text" style="font-size: 0.95rem; margin-top: 0">
+        hellow, minigame buat kamuu! semoga kamu sukaa<br />
       </p>
-      <button class="btn-primary" onclick="goToPage(2)">Next →</button>
+      <button class="btn-primary" onclick="goToPage(2)">mulai yuu →</button>
     </div>
 
-    <!-- ===== PAGE 2 ===== -->
-    <div class="page" id="page2">
-      <!-- Page 2: cute curious cat -->
-      <img
-        class="cat-gif gif-asset"
-        data-gif="cat-curious"
-        style="width: clamp(90px, 24vw, 150px)"
-        alt="cat-curious"
-      />
-      <h2 class="question-text">do yu stil lov me?<br /></h2>
+    <!-- ===== PAGE: FILL THE HEART ===== -->
+    <div class="page" id="pageHeart">
+      <h1 class="heart-cta" id="heartCta">SPAM TAP! 💙</h1>
 
-      <div class="love-arena" id="loveArena">
-        <button id="btn-yes" onclick="yesClicked()">iyaa</button>
-        <button id="btn-no" onclick="noClicked()">endak</button>
+      <!-- area tap: seluruh kotak ini bisa diketuk -->
+      <div class="heart-wrap" id="heartTapArea">
+        <!-- hati abu (kosong) -->
+        <svg class="heart-svg" viewBox="0 0 100 90" aria-hidden="true">
+          <defs>
+            <clipPath id="heartClip">
+              <path d="M50 88 C-30 35 15 -8 50 25 C85 -8 130 35 50 88 Z" />
+            </clipPath>
+          </defs>
+          <path
+            class="heart-empty"
+            d="M50 88 C-30 35 15 -8 50 25 C85 -8 130 35 50 88 Z"
+          />
+          <!-- isian naik dari bawah -->
+          <g clip-path="url(#heartClip)">
+            <rect
+              class="heart-fill"
+              id="heartFill"
+              x="0"
+              y="90"
+              width="100"
+              height="90"
+            />
+          </g>
+        </svg>
+        <div class="tap-hint">👆 ketuk layar cepet-cepet!</div>
       </div>
 
-      <div id="yes-msg">
-        <p class="yay-msg" id="yes-text">yeeeyyyyyy aku jugaaa 🎉💕</p>
-        <!-- Page 2 yes: happy cat -->
+      <div class="heart-bar">
+        <div class="heart-bar-fill" id="heartBarFill"></div>
+      </div>
+      <p class="heart-pct" id="heartPct">0% terisi</p>
+
+      <!-- kartu hasil -->
+      <div class="heart-result-card" id="heartResultCard" style="display: none">
+        <div class="heart-badge">💙</div>
+        <p class="heart-result-text">
+          kamu ngisi hatiku penuh cinta<br />
+          dalam <b id="tapCount">0</b> tap &amp; <b id="tapTime">0</b> detik 👏
+        </p>
+        <h2 class="heart-inside">terus, apa isinya?</h2>
+        <button class="heart-open-btn" onclick="goToPage(2)">
+          BUKA HADIAH 🎁
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== PAGE 2 : PHOTO PUZZLE GAME ===== -->
+    <div class="page" id="page2">
+      <p class="step-indicator">mini game 🧩</p>
+      <h2 class="section-title">susun puzzle fotonya!</h2>
+      <p class="puzzle-hint" id="puzzleHint">
+        geser / ketuk 2 kotak buat tukar posisinya 👆
+      </p>
+
+      <div class="puzzle-stats">
+        🧩 Langkah: <span id="puzzleMoves">0</span>
+      </div>
+
+      <!-- difficulty selector -->
+      <div class="puzzle-diff" id="puzzleDiff">
+        <button class="diff-btn active" data-n="3" onclick="setPuzzleSize(3)">
+          gampang (3×3)
+        </button>
+        <button class="diff-btn" data-n="4" onclick="setPuzzleSize(4)">
+          sedang (4×4)
+        </button>
+      </div>
+
+      <!-- puzzle board -->
+      <div class="puzzle-board" id="puzzleBoard"></div>
+
+      <div class="game-nav">
+        <button class="btn-secondary" onclick="initPuzzle()">
+          🔄 acak lagi
+        </button>
+        <button class="btn-skip" onclick="skipPuzzle()">skip aja</button>
+      </div>
+
+      <!-- preview toggle -->
+      <button
+        class="puzzle-peek"
+        id="peekBtn"
+        onmousedown="showPeek(true)"
+        onmouseup="showPeek(false)"
+        onmouseleave="showPeek(false)"
+        ontouchstart="showPeek(true)"
+        ontouchend="showPeek(false)"
+      >
+        👀 tahan buat liat foto aslinya
+      </button>
+
+      <div id="puzzleResult" class="puzzle-result" style="display: none">
+        <p class="yay-msg">yeeeyy selesaii! pinter bangettt 🎉🩵</p>
         <img
           class="cat-gif gif-asset"
-          data-gif="cat-happy"
-          style="width: 130px"
-          alt="cat-happy"
+          data-gif="cat-celebrate"
+          style="width: 120px"
+          alt="cat-celebrate"
         />
         <button
           class="btn-primary"
           onclick="goToPage(3)"
-          style="margin-top: 14px"
+          style="margin-top: 14px; font-size: 1.15rem"
         >
-          main game yuuu! 🎮
+          buka kejutannya 🎁
         </button>
-      </div>
-
-      <!-- hidden "no" reaction cat, shows after 5 no clicks -->
-      <div id="no-cat" style="display: none; margin-top: 12px">
-        <img
-          class="cat-gif gif-asset"
-          data-gif="cat-judging"
-          style="width: 200px"
-          alt="cat-judging"
-        />
-        <p
-          style="
-            font-family: &quot;Boogaloo&quot;, cursive;
-            color: #e06060;
-            font-size: 1rem;
-            margin-top: 6px;
-          "
-        >
-          ihh beneran mau bilang engga sampe 5 kali?
-        </p>
       </div>
     </div>
 
-    <!-- ===== PAGE 3 ===== -->
+    <!-- ===== PAGE 3 : MONTHSARY MESSAGE (FINAL) ===== -->
     <div class="page" id="page3">
-      <!-- Shape Match -->
-      <div class="game-section active-game" id="game1">
-        <p class="step-indicator">mini game 1 dari 2 🎮</p>
-        <h2 class="section-title">cocokin shape nya!</h2>
-        <p style="color: #a07090; font-size: 0.9rem; margin-bottom: 6px">
-          pilih 2 kartu yang sama!
+      <div class="title-wrap">
+        <span class="badge-star s1">✨</span>
+        <span class="badge-star s2">🌸</span>
+        <span class="badge-star s3">🩵</span>
+        <span class="badge-star s4">⭐</span>
+        <span class="badge-star s5">🌸</span>
+        <span class="badge-star s6">✨</span>
+        <span class="badge-star s7">⭐</span>
+        <span class="badge-star s8">🩵</span>
+        <h1 class="main-title">Happy 51th<br />Monthsary! 🎉</h1>
+      </div>
+
+      <img
+        class="cat-gif gif-asset"
+        data-gif="cat-heart"
+        style="width: clamp(100px, 26vw, 160px)"
+        alt="cat-heart"
+      />
+      <p class="sub-text" style="font-size: 0.9rem; margin-top: 0">
+        semoga kita selalu bisa rayain tanggal 20 sama sama terus aamiin🩵🩵<br />
+        aku selalu sayang banget sama kamu. thank you udah mau sama aku terus<br />
+        meskipun kadang ngeselin hehe<br />
+        lovee you to the moon and back🥰🩵<br />
+      </p>
+      <button
+        class="btn-primary"
+        onclick="celebrateAgain()"
+        style="margin-top: 6px"
+      >
+        🎉 hore lagii!
+      </button>
+
+      <div class="date-letter">
+        <!-- <p class="letter-greet">buat adekk 🩵</p> -->
+
+        <p class="letter-line">
+          anw ini aku ada plan date nii buat besoknyaa, free to discuss
         </p>
-        <div class="game-score">
-          ⭐ Score: <span id="matchScore">0</span> &nbsp;|&nbsp; Moves:
-          <span id="moves">0</span>
-        </div>
-        <div class="shape-grid" id="shapeGrid"></div>
 
-        <div id="matchResult" style="display: none; margin-top: 10px">
-          <p class="yay-msg">wii kerenn jago banget! 🎉</p>
-          <!-- Shape match win: celebrate cat -->
-          <img
-            class="cat-gif gif-asset"
-            data-gif="cat-celebrate"
-            style="width: 110px"
-            alt="cat-celebrate"
-          />
+        <div class="letter-block">
+          <p class="letter-label">📅 hari</p>
+          <p class="letter-val">Minggu, 21 Juni 2026</p>
         </div>
 
-        <div class="game-nav">
-          <button class="btn-secondary" onclick="initShapeGame()">🔄</button>
-          <button
-            class="btn-secondary"
-            id="nextGameBtn"
-            onclick="goToGame(2)"
-            style="display: none"
-          >
-            Quiz! 📝
-          </button>
-          <button class="btn-skip" onclick="skipShapeGame()">skip aja</button>
-        </div>
-      </div>
-
-      <!-- Quiz -->
-      <div class="game-section" id="game2">
-        <p class="step-indicator">Mini Game 2 dari 2 📝</p>
-        <h2 class="section-title">quizzz!💑</h2>
-
-        <div class="quiz-card" id="quizCard">
-          <p class="quiz-progress" id="quizProgress">Pertanyaan 1 dari 6</p>
-          <p class="quiz-q" id="quizQuestion"></p>
-          <div class="quiz-options" id="quizOptions"></div>
-          <button
-            class="quiz-next"
-            id="quizNextBtn"
-            onclick="nextQuestion()"
-            disabled
-          >
-            Selanjutnya →
-          </button>
+        <div class="letter-block">
+          <p class="letter-label">⏰ arrive</p>
+          <p class="letter-val">15.00pm</p>
         </div>
 
-        <div
-          id="quizResult"
-          style="display: none; width: 100%; max-width: 460px"
-        >
-          <p class="yay-msg" style="color: var(--purple)">
-            yeyy selesaii! ini jawabanmu🥰
+        <div class="letter-block">
+          <p class="letter-label">👔 dresscode</p>
+          <p class="letter-val">
+            white–brown (kaya pas konser kemaren)<br />atau black–blue jeans
           </p>
-          <p
-            style="
-              font-family: &quot;Boogaloo&quot;, cursive;
-              color: #e06060;
-              font-size: 1rem;
-              margin-top: 6px;
-            "
-          >
-            screenshot kirimin yaa, aku pengen liat jawaban kamu wkwk
-          </p>
-          <!-- Quiz done: heart cat -->
-          <img
-            class="cat-gif gif-asset"
-            data-gif="cat-heart"
-            style="width: 110px"
-            alt="cat-heart"
-          />
-          <div class="result-card" id="resultCard"></div>
-          <button
-            class="btn-primary"
-            onclick="showKaseta()"
-            style="margin-top: 20px; font-size: 1.1rem"
-          >
-            ada yg terakhir nihh
-          </button>
         </div>
+
+        <p class="letter-section-title">✨ pilih agenda kita ✨</p>
+
+        <div class="letter-option">
+          <p class="opt-num">opsi 1</p>
+          <p class="letter-val">
+            gaming space dulu → makan → lanjut nongki mejeng malam
+          </p>
+        </div>
+
+        <div class="letter-option">
+          <p class="opt-num">opsi 2</p>
+          <p class="letter-val">
+            mejeng di cafe sambil liat sunset → makan & jajan → lanjut gaming
+            space
+          </p>
+        </div>
+
+        <p class="letter-note">note kita harus book dulu hehe</p>
+
+        <p class="letter-section-title">🍽️ pilihan tempat mamm</p>
+        <ul class="letter-list">
+          <li>
+            <a href="https://vt.tiktok.com/ZSQvWdhfK/" target="_blank"
+              >T'Coral di UNS</a
+            >
+          </li>
+          <li>
+            <a href="https://vt.tiktok.com/ZSQvWvCpK/" target="_blank"
+              >Maramu Ramen UMS</a
+            >
+          </li>
+        </ul>
+
+        <p class="letter-section-title">☕ pilihan cafe</p>
+        <ul class="letter-list">
+          <li>
+            <a href="https://vt.tiktok.com/ZSQvWtQc2/" target="_blank"
+              >Headroom Banjarsari</a
+            >
+          </li>
+          <li>
+            <a href="https://vt.tiktok.com/ZSQvWcaFj/" target="_blank"
+              >Nanairo Cafe (cafe kecil cozy keknya)</a
+            >
+          </li>
+          <li>⁠feel free kalo ayang ada rekomendasi</li>
+        </ul>
+
+        <p class="letter-section-title">🎮 pilihan gaming space</p>
+        <ul class="letter-list">
+          <li>MLG</li>
+          <li>
+            <a href="https://vt.tiktok.com/ZSQvWhGyp/" target="_blank"
+              >Lajoya Game Center (Nusukan)</a
+            >
+            — ada karaokenya niii
+          </li>
+        </ul>
+
+        <!-- <p class="letter-sign">can't wait ehe🩵<br /></p> -->
       </div>
+    </div>
+
+    <!-- toast -->
+    <div id="toast">
+      <p id="toastMsg"></p>
     </div>
 
     <script src="assets/js/gifs.js"></script>
     <script src="assets/js/ui.js"></script>
     <script src="assets/js/nav.js"></script>
-    <script src="assets/js/shapematch.js"></script>
-    <script src="assets/js/media.js"></script>
-    <script src="assets/js/quiz.js"></script>
-    <script src="assets/js/kaseta.js"></script>
+    <script src="assets/js/puzzle.js"></script>
+    <script src="assets/js/heart.js"></script>
   </body>
 </html>

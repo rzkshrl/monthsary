@@ -8,111 +8,30 @@ function goToPage(n) {
     .querySelectorAll(".dot")
     .forEach((d) => d.classList.remove("active"));
   document.getElementById("page" + n).classList.add("active");
-  document.getElementById("dot" + n).classList.add("active");
+  const dot = document.getElementById("dot" + n);
+  if (dot) dot.classList.add("active"); // pageHeart tak punya dot, aman
+
   window.scrollTo(0, 0);
-  if (n === 2) setTimeout(initLoveLayout, 60);
-  if (n === 3) initShapeGame();
+
+  if (n === 2) setTimeout(initPuzzle, 60); // mulai puzzle
+  if (n === 3 && typeof confettiBurst === "function")
+    setTimeout(confettiBurst, 300); // rayakan pas pesan muncul
 }
 
-// ======= LOVE BUTTONS (PAGE 2) =======
+// ======= FILL-THE-HEART PAGE (sebelum puzzle) =======
+function goToHeart() {
+  document
+    .querySelectorAll(".page")
+    .forEach((p) => p.classList.remove("active"));
+  document
+    .querySelectorAll(".dot")
+    .forEach((d) => d.classList.remove("active"));
 
-let yesScale = 1;
-let noCount = 0;
+  document.getElementById("pageHeart").classList.add("active");
+  // tandai dot pertama supaya progress indicator tetap masuk akal
+  const d1 = document.getElementById("dot1");
+  if (d1) d1.classList.add("active");
 
-const yesMessages = ["awww maacii ayangg🥰💖", "yeeeyyyyyy aku jugaaa 🎉💕"];
-
-function initLoveLayout() {
-  const arena = document.getElementById("loveArena");
-  const aw = arena.offsetWidth;
-  const ah = arena.offsetHeight;
-  const yes = document.getElementById("btn-yes");
-  const no = document.getElementById("btn-no");
-
-  yes.style.left = Math.round(aw * 0.08) + "px";
-  yes.style.top = Math.round((ah - yes.offsetHeight) / 2) + "px";
-  yes.style.transform = "none";
-
-  no.style.left = Math.round(aw * 0.58) + "px";
-  no.style.top = Math.round((ah - no.offsetHeight) / 2) + "px";
-  no.style.transform = "none";
+  window.scrollTo(0, 0);
+  if (typeof initHeartTap === "function") setTimeout(initHeartTap, 60);
 }
-
-function yesClicked() {
-  yesScale = Math.min(yesScale + 0.22, 2.7);
-
-  const yes = document.getElementById("btn-yes");
-  yes.style.transformOrigin = "center center";
-  yes.style.transform = `scale(${yesScale})`;
-  yes.style.fontSize = Math.min(1.4 + (yesScale - 1) * 0.35, 2.5) + "rem";
-
-  const noCat = document.getElementById("no-cat");
-  if (noCat) noCat.style.display = "none";
-
-  document.getElementById("yes-text").textContent =
-    yesMessages[Math.floor(Math.random() * yesMessages.length)];
-  const yesMsg = document.getElementById("yes-msg");
-  yesMsg.style.display = "block";
-  // re-trigger animation
-  yesMsg.classList.remove("visible");
-  void yesMsg.offsetWidth;
-  yesMsg.classList.add("visible");
-
-  confettiBurst();
-}
-
-function noClicked() {
-  noCount++;
-
-  const arena = document.getElementById("loveArena");
-  const aw = arena.offsetWidth;
-  const ah = arena.offsetHeight;
-  const yes = document.getElementById("btn-yes");
-  const no = document.getElementById("btn-no");
-
-  // Kecilkan tombol No
-  const noScale = Math.max(0.45, 1 - noCount * 0.08);
-  no.style.fontSize = noScale * 1.3 + "rem";
-  no.style.padding = noScale * 12 + "px " + noScale * 26 + "px";
-
-  // Cari posisi paling jauh dari tombol Yes
-  const yesCx = yes.offsetLeft + yes.offsetWidth / 2;
-  const yesCy = yes.offsetTop + yes.offsetHeight / 2;
-  const noW = no.offsetWidth;
-  const noH = no.offsetHeight;
-
-  let best = null;
-  let bestDist = -1;
-
-  for (let t = 0; t < 50; t++) {
-    const px = Math.random() * Math.max(1, aw - noW);
-    const py = Math.random() * Math.max(1, ah - noH);
-    const d = Math.hypot(px + noW / 2 - yesCx, py + noH / 2 - yesCy);
-    if (d > bestDist) {
-      bestDist = d;
-      best = { px, py };
-    }
-  }
-
-  no.style.left = best.px + "px";
-  no.style.top = best.py + "px";
-  no.style.transform = "none";
-
-  // Besarkan tombol Yes sedikit
-  yesScale = Math.min(yesScale + 0.1, 2.7);
-  yes.style.transformOrigin = "center center";
-  yes.style.transform = `scale(${yesScale})`;
-
-  // Setelah 5 hover, tampilkan kucing judging
-  if (noCount === 5) {
-    const noCat = document.getElementById("no-cat");
-    noCat.style.display = "block";
-    noCat.classList.remove("visible");
-    void noCat.offsetWidth;
-    noCat.classList.add("visible");
-  }
-}
-
-// Trigger noClicked saat cursor masuk tombol No
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("btn-no").addEventListener("mouseenter", noClicked);
-});

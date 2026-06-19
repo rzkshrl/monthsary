@@ -4,7 +4,7 @@
 // --- Floating Hearts Background ---
 function initHearts() {
   const heartsBg = document.getElementById("heartsBg");
-  const emojis = ["💕", "💖", "💗", "🌸", "✨", "💝", "🩷", "💓"];
+  const emojis = ["🩵", "💙", "✨", "🌸", "💎", "⭐", "🩵", "❄️"];
 
   emojis.forEach((e) => {
     for (let j = 0; j < 2; j++) {
@@ -34,12 +34,12 @@ function showToast(msg) {
 // --- Confetti ---
 function confettiBurst() {
   const colors = [
-    "#ff6b9d",
-    "#ffe66d",
-    "#a8e6cf",
-    "#c3aef4",
-    "#ffb347",
-    "#ffd6e7",
+    "#5b9bd5",
+    "#7ec8e3",
+    "#cfe8ff",
+    "#9ad6c4",
+    "#9aa7ec",
+    "#d6e8fb",
   ];
 
   for (let i = 0; i < 38; i++) {

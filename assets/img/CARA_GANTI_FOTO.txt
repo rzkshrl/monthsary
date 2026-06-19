@@ -1,0 +1,15 @@
+CARA MENGGANTI FOTO PUZZLE
+===========================
+
+1. Siapkan foto yang kamu mau (paling bagus bentuknya KOTAK / 1:1, contoh 600x600 px).
+2. Beri nama file: puzzle.jpg
+3. Taruh di folder ini (assets/img/) menggantikan file puzzle.jpg yang lama.
+
+Selesai! Puzzle otomatis pakai foto barumu.
+
+CATATAN:
+- Kalau mau pakai nama file / format lain (mis. puzzle.png), ubah baris
+  PUZZLE_IMG di file: assets/js/puzzle.js
+      const PUZZLE_IMG = "assets/img/puzzle.jpg";
+- Foto yang tidak kotak tetap bisa, tapi akan sedikit terpotong/melar
+  supaya pas di papan puzzle.
